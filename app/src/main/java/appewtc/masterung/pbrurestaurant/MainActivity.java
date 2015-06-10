@@ -1,5 +1,6 @@
 package appewtc.masterung.pbrurestaurant;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -38,10 +39,21 @@ public class MainActivity extends AppCompatActivity {
         //Tester Add Value
         //testAddValue();
 
+        //Delete All Data
+        deleteAllData();
+
         //Synchronize JSON to SQLite
         synJSONtoSQLite();
 
     }   // onCreate
+
+    private void deleteAllData() {
+
+        SQLiteDatabase objDatabase = openOrCreateDatabase("pbru.db", MODE_PRIVATE, null);
+        objDatabase.delete("userTABLE", null, null);
+        objDatabase.delete("foodTABLE", null, null);
+
+    }
 
 
     private void synJSONtoSQLite() {
