@@ -7,10 +7,29 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Explicit
+    private UserTABLE objUserTABLE;
+    private FoodTABLE objFoodTABLE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Request Database
+        objUserTABLE = new UserTABLE(this);
+        objFoodTABLE = new FoodTABLE(this);
+
+        //Tester Add Value
+        //testAddValue();
+
+    }   // onCreate
+
+    private void testAddValue() {
+
+        objUserTABLE.addNewUser("testUser", "testPass", "ชื่อภาษาไทย");
+        objFoodTABLE.addFood("ผัดกะเพรา", "65");
+
     }
 
     @Override
@@ -34,4 +53,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+}   // Main Class
