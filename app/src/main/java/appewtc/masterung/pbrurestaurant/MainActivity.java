@@ -1,5 +1,7 @@
 package appewtc.masterung.pbrurestaurant;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.StrictMode;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import org.apache.http.HttpEntity;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private UserTABLE objUserTABLE;
     private FoodTABLE objFoodTABLE;
     private EditText userEditText, passwordEditText;
+    private String userString, passwordString, truePasswordString, nameString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,60 @@ public class MainActivity extends AppCompatActivity {
         synJSONtoSQLite();
 
     }   // onCreate
+
+    public void clickLogin(View view) {
+
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+
+        if (userString.equals("") || passwordString.equals("") ) {
+
+            //Show Negative Dialog
+            negDialog("มีช่องว่าง", "กรุณากรอกทุกช่องคะ");
+
+        } else {
+
+            //Check User
+            checkUser();
+
+        }
+
+    }   // clickLogin
+
+    private void checkUser() {
+
+        try {
+
+            String myResult[] = objUserTABLE.searchUser(userString);
+            truePasswordString = myResult[2];
+            nameString = myResult[3];
+
+            Log.d("pbru", "Welcome ==> " + nameString);
+
+        } catch (Exception e) {
+            negDialog("ไม่มี User", "ไม่มี " + userString + " บนฐานข้อมูล");
+        }
+
+    }   // checkUser
+
+    private void negDialog(String strTitle, String strMessage) {
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.icon_question);
+        objBuilder.setTitle(strTitle);
+        objBuilder.setMessage(strMessage);
+        objBuilder.setCancelable(false);
+        objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+
+
+    }   // negDialog
+
 
     private void bindWidget() {
         userEditText = (EditText) findViewById(R.id.edtUser);
