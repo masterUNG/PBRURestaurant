@@ -132,7 +132,8 @@ public class OrderListView extends AppCompatActivity {
     private void createSpinner() {
 
         final String showDesk[] = getResources().getStringArray(R.array.desk);
-        ArrayAdapter<String> deskAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, showDesk);
+        ArrayAdapter<String> deskAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, showDesk);
         deskSpinner.setAdapter(deskAdapter);
 
         deskSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
