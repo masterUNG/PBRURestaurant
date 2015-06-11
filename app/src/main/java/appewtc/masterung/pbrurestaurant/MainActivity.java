@@ -2,6 +2,7 @@ package appewtc.masterung.pbrurestaurant;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.StrictMode;
@@ -117,6 +118,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
+                Intent objIntent = new Intent(MainActivity.this, OrderListView.class);
+                objIntent.putExtra("Officer", nameString);
+                startActivity(objIntent);
+                finish();
+
             }
         });
         objBuilder.show();
@@ -133,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+                userEditText.setText("");
+                passwordEditText.setText("");
             }
         });
         objBuilder.show();

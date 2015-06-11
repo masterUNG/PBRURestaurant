@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="desk">
+
+        <item>1A</item>
+        <item>2A</item>
+        <item>3A</item>
+        <item>4A</item>
+        <item>5A</item>
+        <item>6A</item>
+        <item>7A</item>
+        <item>8A</item>
+
+    </string-array>
+
+</resources>
