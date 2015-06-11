@@ -85,11 +85,42 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d("pbru", "Welcome ==> " + nameString);
 
+            //Check Password
+            checkPassword();
+
         } catch (Exception e) {
             negDialog("ไม่มี User", "ไม่มี " + userString + " บนฐานข้อมูล");
         }
 
     }   // checkUser
+
+    private void checkPassword() {
+
+        if (passwordString.equals(truePasswordString)) {
+
+            welcome();
+
+        } else {
+            negDialog("Password False", "Please Try Again Password False");
+        }
+
+    }   // checkPassword
+
+    private void welcome() {
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.restaurant);
+        objBuilder.setTitle("ยินดีต้อนรับ");
+        objBuilder.setMessage("ยินดีต้อนรับ คุณ " + nameString + "\n" + "สู่ร้านของเรา");
+        objBuilder.setCancelable(false);
+        objBuilder.setPositiveButton("ขอบคุณ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+    }
 
     private void negDialog(String strTitle, String strMessage) {
 
