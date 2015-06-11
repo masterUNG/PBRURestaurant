@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
             HttpClient objHttpClient = new DefaultHttpClient();
             HttpPost objHttpPost = new HttpPost("http://www.applesguesthouse.com.203.151.157.79.no-domain.name/pbru/get_data_master.php");
+            //HttpPost objHttpPost = new HttpPost("http://10.0.3.2:8888/get_data_master.php");
             HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
             HttpEntity objHttpEntity = objHttpResponse.getEntity();
             objInputStream = objHttpEntity.getContent();
