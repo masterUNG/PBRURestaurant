@@ -2,6 +2,7 @@ package appewtc.masterung.pbrurestaurant;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -25,6 +26,61 @@ public class FoodTABLE {
         readDatabase = objMyOpenHelper.getReadableDatabase();
 
     }   // Constructor
+
+    //Read All Price
+    public String[] readAllPrice() {
+
+        String[] strPrice = null;
+        Cursor objCursor = readDatabase.query(FOOD_TABLE,
+                new String[]{COLUMN_ID_FOOD, COLUMN_PRICE},
+                null, null, null, null, null);
+
+        if (objCursor != null) {
+
+            objCursor.moveToFirst();
+            strPrice = new String[objCursor.getCount()];
+
+            for (int i = 0; i < objCursor.getCount(); i++) {
+
+                strPrice[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_PRICE));
+                objCursor.moveToNext();
+
+            }   //for
+
+        }   //if
+        objCursor.close();
+
+        return strPrice;
+    }
+
+
+
+    //Read All Food
+    public String[] readAllFood() {
+
+        String[] strFood = null;
+        Cursor objCursor = readDatabase.query(FOOD_TABLE,
+                new String[]{COLUMN_ID_FOOD, COLUMN_FOOD},
+                null, null, null, null, null);
+
+        if (objCursor != null) {
+            objCursor.moveToFirst();
+            strFood = new String[objCursor.getCount()];
+
+            for (int i = 0; i < objCursor.getCount(); i++) {
+
+                strFood[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_FOOD));
+                objCursor.moveToNext();
+
+            }   //for
+
+        }   //if
+        objCursor.close();
+
+        return strFood;
+    }
+
+
 
     public long addFood(String strFood, String strPrice) {
 
