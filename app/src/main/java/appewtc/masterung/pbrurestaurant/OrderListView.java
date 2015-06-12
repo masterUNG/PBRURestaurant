@@ -1,5 +1,7 @@
 package appewtc.masterung.pbrurestaurant;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +63,7 @@ public class OrderListView extends AppCompatActivity {
 
     private void createListView() {
 
-        String strFood[] = objFoodTABLE.readAllFood();
+        final String strFood[] = objFoodTABLE.readAllFood();
         String strPrice[] = objFoodTABLE.readAllPrice();
         int intImageFood[] = new int[]{R.drawable.food1, R.drawable.food2, R.drawable.food3,
                 R.drawable.food4, R.drawable.food5, R.drawable.food6, R.drawable.food7,
@@ -80,7 +82,74 @@ public class OrderListView extends AppCompatActivity {
         MyAdapter objMyAdapter = new MyAdapter(OrderListView.this, strFood, strPrice, intImageFood);
         foodListView.setAdapter(objMyAdapter);
 
+        //OnItemClick on ListView
+        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                foodString = strFood[i];
+
+                //Choose Item
+                chooseItem();
+
+            }   // event
+        });
+
+
+
     }   //createListView
+
+    private void chooseItem() {
+
+        CharSequence[] objSequences = {"1 set", "2 set", "3 set", "4 set", "5 set", "6 set", "7 set", "8 set"};
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setTitle("How many Set ?");
+        objBuilder.setSingleChoiceItems(objSequences, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                int intSet = i + 1;
+                itemString = Integer.toString(intSet);
+
+                //Confirm Dialog
+                confirmDialog();
+
+                dialogInterface.dismiss();
+
+            }   // event
+        });
+        objBuilder.show();
+
+
+    }   //chooseItem
+
+    private void confirmDialog() {
+
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.restaurant);
+        objBuilder.setTitle("Confirm Order");
+        objBuilder.setMessage("Offecer = " + officerString + "\n"
+                + "Desk = " + deskString + "\n"
+                + "Food = " + foodString + "\n"
+                + "Item = " + itemString);
+        objBuilder.setCancelable(false);
+        objBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.setPositiveButton("Order", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        objBuilder.show();
+
+    }
+
 
     private void synJSONtoSQLte() {
 
